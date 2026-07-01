@@ -71,7 +71,7 @@ Giving P(100) = 0.24540
 
 Since each step can only go up or down with equal probability the result for a step can be represented by a randomly generated bit 0 or 1 (0 for decrease in value, 1 for increase).
 
-The number of occurances of each possible final share price is stored in an array `result`.
+The number of occurances of each possible number of increasing steps is stored in an array `result`.
 
 For each of the N simulated walks the entire walk can be generated using a random bitstring of size S, using `random.getrandbits(S)`.
 
@@ -79,4 +79,4 @@ Then, the number of increasing steps can be counted using `.bit_count()`. This i
 
 After each walk has been simulated, the counts stored in `result` are converted to probabilities by dividing each value by `N`.
 
-For outputting the final results each of the increasing steps are converted into share price by doing `price = 100 - S + 2 * walk_up`.
+For outputting the final results, each of probabilities for the number of increasing steps are converted into share price by doing `price = 100 - S + 2 * walk_up`.
