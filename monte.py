@@ -3,6 +3,7 @@ import random
 import argparse
 
 def int_1_100(v):
+    # ensures S is an int and 1 <= S <= 100
     try:
         s = int(v)
     except ValueError:
@@ -12,6 +13,7 @@ def int_1_100(v):
     return s
 
 def int_1_100000(v):
+    # ensures N is an int and 1 <= N <= 100000
     try:
         s = int(v)
     except ValueError:
@@ -21,13 +23,15 @@ def int_1_100000(v):
     return s
 
 def run(S, N):
+    # stores all possible values for number of increasing steps
     result = [0] * (S + 1)
-
+    
+    # iterate each walk
     for n in range(N):
-        # gen rand bitstring
+        # gen rand walk with bitstring
         # 1 -> up | 0 -> down
         walk = random.getrandbits(S)
-        walk_up = walk.bit_count()
+        walk_up = walk.bit_count() # count increasing steps
         result[walk_up] += 1
 
     # turn count -> prob
@@ -51,15 +55,19 @@ if __name__ == '__main__':
 
     default_walk = 100 - S
     
+    # prints the table
     print(f"{'Price':>7} | {'Probability':>11}")
     print("-"*25)
     for walk_up, proportion in enumerate(result):
+        # if --show not used then skip
         if proportion == 0 and not args.show:
             continue
+        # convert number of increasing steps into a share price
         price = default_walk + 2 * walk_up
         print(f"{price:7d} | {proportion:11.5f}")
     
     # correctness verification
+    # the below bit gives sanity checks: gives sum of all probabilities and calculates expected share price
 
     ## print(f"Total prob: {sum(result):.10f}")
     
